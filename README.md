@@ -247,6 +247,6 @@ $ git ci .
 ##### 标签（tag）
 
 ### GIT 常用工具推荐
-#### Gitlab merge request（code reivew 极佳工具）
-#### Gitlens （vscode IDE 吐血力荐）
-#### TortoiseGit（wangleilei2 同学比较熟悉这个工具）
+#### Gitlab merge request
+#### Gitlens
+#### TortoiseGit
