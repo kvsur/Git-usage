@@ -1,8 +1,3 @@
-[TOC]
-
-<style>
-pre {background: #000;}
-</style>
 
 > <p style="color: #409eff; font-size: 14px; font-weight: bold;">
 本文档结合经验总结一些GIT在项目中使用的最佳实践，希望能对大家有一定的帮助，如果你有自己的一些最佳实践，也可以添加到这里来，供大家一起学习使用；
