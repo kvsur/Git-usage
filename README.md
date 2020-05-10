@@ -24,13 +24,13 @@ $ git config user.age 25
 
 # 全局用户信息配置
 $ git config --global user.name licheng
-$ git config --global user.email licheng@ths.com
+$ git config --global user.email licheng@gmail.com
 
 # 针对当前用户生成公钥，用来添加托管平台的权限（github，gitlab）
 # 建议在clone项目的时候使用ssh协议方式，而不是http或者https协议方式
 # 在用户目录.ssh文件夹找到id_rsa.pub 复制其里内容到托管平台即可
 # -t 指定密钥类型 -C 注释，这里一般是我们的自己的邮箱或者名称
-$ ssh-keygen -t rsa -C licheng@ths.com
+$ ssh-keygen -t rsa -C licheng@gmail.com
 ```
 
 ##### 2. short cmd 简写命令配置（个人常用配置）
@@ -93,11 +93,11 @@ $ git check-ignore -v dir/file.js
 #### Clone 远程代码克隆
 ```bash
 # 基础，完成之后文件夹名称是demo
-$ git clone git@ths.licheng.com/proejcts/demo.git 
+$ git clone git@www.licheng.com/proejcts/demo.git 
 # 可指定文件目录名称，完成之后是 renameDemo
-$ git clone git@ths.licheng.com/proejcts/demo.git renameDemo 
+$ git clone git@www.licheng.com/proejcts/demo.git renameDemo 
 # 克隆master 在本地创建 dev分支，自动切换到dev
-$ git clone -b dev git@ths.licheng.com/proejcts/demo.git 
+$ git clone -b dev git@www.licheng.com/proejcts/demo.git 
 ```
 #### Remote （代码迁移）
 当我们在做代码迁移的时候，就可以用到remote 命令；
@@ -133,18 +133,18 @@ $ git push origin master
 
 ```bash
 # 以下是代码迁移一般流程，代码迁移一般是从一个源移动到另一个源，
-# 比如从 gitlab.ths.com/znkf/frontend
-# 到 aipx-git.ths.com/znkf/frontend（这里一般是一个空项目）
-$ git remote -v # check origin --> origin git@gitlab.ths.com/znkf/frontend.git
+# 比如从 gitlab.xxx.com/ccc/frontend
+# 到 aaa-git.xxx.com/ccc/frontend（这里一般是一个空项目）
+$ git remote -v # check origin --> origin git@gitlab.xxx.com/ccc/frontend.git
 $ git remote remove origin
-$ git remote add origin git@aipx-git.ths.com/znkf/frontend.git
+$ git remote add origin git@aaa-git.xxx.com/ccc/frontend.git
 $ git add .
 $ git commit -m 'change origin'
 $ git push -u origin --all
 # 以上就基本能完成迁移工作
 
 # 也可以通过下面的方式
-$ git remote set-url origin git@aipx-git.ths.com/znkf/frontend.git
+$ git remote set-url origin git@aaa-git.xxx.com/ccc/frontend.git
 $ git add .
 $ git commit -m 'change origin'
 $ git push -u origin --all
