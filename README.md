@@ -5,10 +5,10 @@
 
 | - | - |
 | ---| --- |
-| ** Remote ** | 远程仓库源/origin |
-| ** Repository ** | 本地仓库（git commit 之后就是更新本地仓库）|
-| ** Index ** |暂存区（git add 之后就是在更新暂存区，包括merge之后解决的冲突文件）|
-| ** Workspace  **  |本地代码，包括修改的部分|
+| **Remote** | 远程仓库源/origin |
+| **Repository** | 本地仓库（git commit 之后就是更新本地仓库）|
+| **Index** |暂存区（git add 之后就是在更新暂存区，包括merge之后解决的冲突文件）|
+| **Workspace**  |本地代码，包括修改的部分|
 
 ### 常用GIT 操作
 
