@@ -151,7 +151,7 @@ $ git push -u origin --all
 ```
 
 #### 开发过程中GIT的使用
-##### 信息查看（status, log, shortlog, blame, diff, show, reflog）
+##### 1. 信息查看（status, log, shortlog, blame, diff, show, reflog）
 ```bash
 # 显示本地及暂存区的变化(基础)
 $ git status
@@ -213,7 +213,7 @@ $ git show commitId
 $ git reflog
 ```
 
-##### 添加，删除，提交（add, rm, commit）
+##### 2. 添加，删除，提交（add, rm, commit）
 ```bash
 # add 操作支持全部add或者部分add
 # 使用正则匹配(多个同时匹配)(建议使用)
@@ -237,11 +237,141 @@ $ git ci src/main.js --amend
 $ git ci . -m 'message info'
 $ git ci .
 ```
-##### 分支操作（branch，checkout）
-##### 远程同步（fetch, pull, push）
-##### 撤销操作（checkout, reset, revert, stash ）
-##### 合并（merge, cherry-pick, rebase）
-##### 标签（tag）
+##### 3. 分支操作（branch，checkout）
+```bash
+# 分支列表及当前分支指向，-r 查看远程分支，-a查看远程及本地所有分支列表
+$ git branch
+$ git branch -r
+$ git branch -a
+# 查看已经被合并到当前分支的分支
+$ git branch --merged
+# 查看没有被合并到当前分支的分支
+$ git branch --no-merged
+# 查看各个分支的最后一次提交
+$ git branch -v 
+
+```
+```bash
+# 切换到上一个分支（类似与alt + tab 键盘切窗口一样）
+$ git checkout -
+# 切换到指定commitid，注意此时会创建一个HEAD指向commitid的临时分支
+# 这个分支在我们切换到下一个分支以后会自动删除
+# 可以基础这个临时分支做很多事情，例如版本回滚，部署历史版本等
+$ git checkout [commit_id]
+# 基于上一条命令，其实更普遍的做法是把commit_id 检出为一个分支
+# 因为我们最终还是做远程提交，上一条命令的操作修改最终是无法提交的到远程
+$ git checkout -b [commit_id] [branchName]
+```
+```bash
+# switch 和 checkout 对应分支的操作是功能相同的
+# 切换到指定分支,分支必须存在才可以
+$ git switch branch_name
+# 切换会上一个分支
+$ git switch -
+# 创建并切换到分支定分支
+$ git switch -c branch_name
+```
+```bash
+# 创建新的分支
+$ git branch [branch-name]
+# 切换到对应的分支
+$ git checkout [branch-name]
+# 创建新的分支并切换到这个分支
+$ git checkout -b [branch-name]
+# 对分支进行重命名操作
+$ git br -m oldName newName
+```
+```bash
+# 删除本地分支
+$ git br -d [branch_name]
+# 删除远程分支
+$ git push [remoteName] -d [branch_name]
+$ git push origin -d dev
+$ git br -dr [remoteName/branch_name]
+$ git br -dr origin/dev
+# 强制删除还没有合并的分支
+$ git br -D [branch_name]
+```
+##### 4. 远程同步（fetch，merge, pull, push）
+> [查看pull 与 fetch 的区别](https://juejin.im/post/5cee184e518825510f372f22)
+
+```bash
+# 拉去远程分支并合并到当前分支(假设当前分支是dev)，可能会有冲突要解决
+$ git pull
+# 相当于merge master to dev 功能
+$ git pull origin master
+```
+```bash
+# 与pull 相对应的还有fetch，fetch只是拉去变化到本地版本库但不做合并，需要手动合并
+$1 git fetch
+$2 git fetch origin master 
+# 进行对比操作
+$1 git diff
+$2 git diff master 
+# 手动合并,可能会有冲突需要解决
+$1 git merge
+$2 git merge master
+```
+```bash
+# 推送本地commit 和 merge 到远程 remote
+$ git push
+$ git push origin dev
+$ git push origin master
+# 推送本地所有分支到远程
+$ git push [reomte] --all
+$ git push origin --all
+```
+##### 5. 撤销操作（restore, checkout, reset, revert, stash ）
+```bash
+# 放弃工作区（本地文件）的修改(必须指定文件名或者路径或正则匹配规则)
+$ git restore src/main.js
+# 将暂存区的修改恢复到工作区(已经add的文件)
+$ git restore --staged src/main.js
+```
+```bash
+# 将暂存区的修改恢复到工作区(已经add的文件)
+# 等同于上面的 git restore --staged
+$ git reset dir/file.js
+# 删除暂存区与工作的所有修改，保持和上一次commit一致，这个操作无法找回
+$ git reset --hard
+# 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
+$ git reset [commit_id]
+# 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+$ git reset --hard [commit_id]
+```
+```bash
+# revert 操作会新建一个commit
+# 恢复到对应commit_id的时的状态
+$ git revert [commit_id]
+# 恢复到最后一次提交的状态
+$ git revert HEAD
+```
+##### 6. 合并（merge, cherry-pick, rebase）
+[Fast Forward 和 no fast foward的区别](https://my.oschina.net/yuzn/blog/82297)
+```bash
+# 当前分支合并指定的分支，默认模式为fast-forward
+$ git merge [branch_name]
+# 不是使用ff模式进行合并(推荐使用这个模式，虽然会多一个参数)
+$ git merge --no-ff [branch_name]
+```
+```bash
+# 使用merge 命令进行合并是分支纬度的合并，合并了整个分支提交信息
+# 当需要合并单个commit提交时，推荐使用cherry-pick
+# commit_id 指定的是其他分支为合并到当前分支的commit_id
+$ git cherry-pick [commit_id1] [commit_id] ...
+# 如果在合并中产生了冲突，需要正常解决冲突，然后：
+$ git add conflic_file.ext
+$ git commit conflic_file.ext
+$ git cherry-pick --continue
+# 完成cherry-pick 合并操作后
+$ git push 
+$ git cherry-pick --quit (如果不退出则无法切换其他分支)
+```
+
+[彻底搞懂 Git-Rebase](http://jartto.wang/2018/12/11/git-rebase/)
+```bash
+# rebase 命令重点用于合并多个commit为一个commit，简化清洁提交历史,参考⬆️上一个连接
+```
 
 ### GIT 常用工具推荐
 #### Gitlab merge request
