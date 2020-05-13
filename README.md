@@ -138,6 +138,7 @@ $ git push origin master
 $ git remote -v # check origin --> origin git@gitlab.xxx.com/ccc/frontend.git
 $ git remote remove origin
 $ git remote add origin git@aaa-git.xxx.com/ccc/frontend.git
+$ git pull origin master --allow-unrelated-histories
 $ git add .
 $ git commit -m 'change origin'
 $ git push -u origin --all
@@ -145,6 +146,7 @@ $ git push -u origin --all
 
 # 也可以通过下面的方式
 $ git remote set-url origin git@aaa-git.xxx.com/ccc/frontend.git
+$ git pull origin master --allow-unrelated-histories
 $ git add .
 $ git commit -m 'change origin'
 $ git push -u origin --all
