@@ -1,4 +1,4 @@
-本文档结合经验总结一些GIT在项目中使用的最佳实践，希望能对大家有一定的帮助，如果你有自己的一些最佳实践，也可以添加到这里来，供大家一起学习使用
+本文档结合经验总结一些GIT在项目中使用的最佳实践，希望能对大家有一定的帮助
 
 ### GIT 的一些基础概念
 ![d](https://image-static.segmentfault.com/928/697/928697185-581eed269d236_articlex)
@@ -23,14 +23,14 @@ $ git config -l
 $ git config user.age 25
 
 # 全局用户信息配置
-$ git config --global user.name licheng
-$ git config --global user.email licheng@gmail.com
+$ git config --global user.name kvsur
+$ git config --global user.email kvsur@gmail.com
 
 # 针对当前用户生成公钥，用来添加托管平台的权限（github，gitlab）
 # 建议在clone项目的时候使用ssh协议方式，而不是http或者https协议方式
 # 在用户目录.ssh文件夹找到id_rsa.pub 复制其里内容到托管平台即可
 # -t 指定密钥类型 -C 注释，这里一般是我们的自己的邮箱或者名称
-$ ssh-keygen -t rsa -C licheng@gmail.com
+$ ssh-keygen -t rsa -C kvsur@gmail.com
 ```
 
 ##### 2. short cmd 简写命令配置（个人常用配置）
@@ -75,9 +75,9 @@ node_modules
 # node_modules文件夹
 /node_modules
 # 只匹配file文件
-licheng:
+kvsur:
 # 只匹配dir目录及其下的所有，不匹配dir文件
-licheng/:
+kvsur/:
 ```
 
 有时候会出现在项目中新增了一个文件但是git st（status）的时候并没有记录，说明.gitignore配置规则有问题
@@ -93,11 +93,11 @@ $ git check-ignore -v dir/file.js
 #### Clone 远程代码克隆
 ```bash
 # 基础，完成之后文件夹名称是demo
-$ git clone git@www.licheng.com/proejcts/demo.git 
+$ git clone git@www.kvsur.com/proejcts/demo.git 
 # 可指定文件目录名称，完成之后是 renameDemo
-$ git clone git@www.licheng.com/proejcts/demo.git renameDemo 
+$ git clone git@www.kvsur.com/proejcts/demo.git renameDemo 
 # 克隆master 在本地创建 dev分支，自动切换到dev
-$ git clone -b dev git@www.licheng.com/proejcts/demo.git 
+$ git clone -b dev git@www.kvsur.com/proejcts/demo.git 
 ```
 #### Remote （代码迁移）
 当我们在做代码迁移的时候，就可以用到remote 命令；
@@ -113,7 +113,7 @@ $ git remote -v
 $ git remote rename oldOrigin newOrigin
 
 # 添加源
-$ git remote add licheng git@licheng.com/projects/demo.git
+$ git remote add kvsur git@kvsur.com/projects/demo.git
 $ git remote add originName gitSourceURL
 
 # 移除添加过的源
@@ -125,7 +125,7 @@ $ git remote set-url originName originURL
 # 平时开发我们一般都只会维护一个源，如果有多个源的时候
 # 相关操作都需要带上originName，默认的originName 就是origin
 # 不建议同时维护多个源，如果需要的时候要注意区分 
-$ git push licheng dev # 推送之前会做分支是否存在的检测
+$ git push kvsur dev # 推送之前会做分支是否存在的检测
 $ git push origin master
 ```
 
@@ -376,6 +376,7 @@ $ git cherry-pick --quit (如果不退出则无法切换其他分支)
 ```
 
 ### GIT 常用工具推荐
-#### Gitlab merge request
-#### Gitlens
-#### TortoiseGit
+#### 1. [Gitlab merge request](https://docs.gitlab.com/ee/user/project/merge_requests/)
+#### 2. [Gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+#### 3. [TortoiseGit](https://tortoisegit.org/)
+#### 4. [Source Tree](https://www.sourcetreeapp.com/)
