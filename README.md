@@ -1,5 +1,3 @@
-本文档结合经验总结一些GIT在项目中使用的最佳实践，希望能对大家有一定的帮助
-
 ### GIT 的一些基础概念
 ![d](https://image-static.segmentfault.com/928/697/928697185-581eed269d236_articlex)
 
